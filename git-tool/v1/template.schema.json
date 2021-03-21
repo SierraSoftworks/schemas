@@ -1,0 +1,66 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "description": "A template which will be consumed by Git-Tool to update a user's config file with a new application or service.",
+    "type": "object",
+    "required": [
+        "name",
+        "description",
+        "version",
+        "configs"
+    ],
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "The human readable name of the application or service provided by this template."
+        },
+        "description": {
+            "type": "string",
+            "description": "The human readable description of the application or service provided by this template, including some information about what the application or service does and where more information can be found about it."
+        },
+        "version": {
+            "type": "string",
+            "description": "The version of the template, following [SemVer](https://semver.org) conventions.",
+            "pattern": "^\\d+\\.\\d+\\.\\d+(-.+)?$"
+        },
+        "configs": {
+            "type": "array",
+            "description": "The list of config changes which should be applied when this template is installed.",
+            "items": {
+                "type": "object",
+                "description": "A config change which should be applied when this template is installed.",
+                "required": [
+                    "platform"
+                ],
+                "oneOf": [
+                    {
+                        "properties": {
+                            "app": {
+                                "$ref": "https://schemas.sierrasoftworks.com/git-tool/v1/config.schema.json#/definitions/Application"
+                            }
+                        }
+                    },
+                    {
+                        "properties": {
+                            "service": {
+                                "$ref": "https://schemas.sierrasoftworks.com/git-tool/v1/config.schema.json#/definitions/Service"
+                            }
+                        }
+                    }
+                ],
+                "properties": {
+                    "platform": {
+                        "type": "string",
+                        "description": "The platform that this config entry should be applied on.",
+                        "default": "any",
+                        "enum": [
+                            "any",
+                            "windows",
+                            "linux",
+                            "darwin"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

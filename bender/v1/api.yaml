@@ -1,0 +1,228 @@
+openapi: 3.0.0
+info:
+  title: Bender
+  description: |
+    Bender is a web service which provides you with random Futurama quotes on-demand. It doesn't serve
+    much of a practical purpose, but if it brightens up your day that's awesome.
+
+    Internally, we primarily use it as a quick test project for mocking out a new API or evaluating
+    a framework, since it does some basic HTTP requests and loads some basis data into memory. For
+    something more complex, we would consider looking to a project like
+    [Rex](https://github.com/SierraSoftworks/rex-rs), which has a more complex API and backend requirements.
+  license:
+    name: MIT
+    url: https://sierrasoftworks.com/licenses/MIT/
+  version: 1.0.0
+
+servers:
+  - url: https://bender.sierrasoftworks.com
+  - url: http://localhost:8000
+
+tags:
+  - name: health
+    description: |
+      Bender's server exposes a series of health endpoints which are intended to be called by a combination
+      of the hosting platform, load balancers and external monitoring tooling to certify the availability
+      of the application.
+
+      These endpoints are intended to be safe to call repeatedly and report a binary status code response
+      (either `200 OK` or `503 Service Unavailable`) and may expose additional contextual information including
+      a soft health indicator, uptime, error context and more.
+  - name: quotes
+    description: |
+      Bender is designed to provide you with quotes from the popular TV-show, Futurama. These methods are
+      what you should call to get those quotes.
+paths:
+  /api/v1/health:
+    get:
+      tags:
+        - health
+
+      summary: Get Health (v1)
+      description: Gets the current health status of the Bender instance.
+      operationId: health_v1
+      responses:
+        200:
+          description: The service is healthy.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthV1"
+              example:
+                ok: true
+        500:
+          description: The service is unhealthy.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthV1"
+              example:
+                ok: false
+
+  /api/v1/quote:
+    get:
+      tags:
+        - quotes
+
+      summary: Get Quote (v1)
+      description: Gets a random quote from a Futurama character in the format requested by your user agent.
+      operationId: quote_v1
+
+      responses:
+        200:
+          $ref: "#/components/responses/Quote"
+        404:
+          description: The server could not find any quotes, which probably means we didn't configure it properly.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              example:
+                code: 404
+                error: Not Found
+                description: The resource you were looking for could not be found, please check your request and try again.
+        500:
+          $ref: "#/components/responses/InternalServerError"
+
+  /api/v1/quote/{by}:
+    get:
+      tags:
+        - quotes
+
+      summary: Get Quote By (v1)
+      description: Gets a Futurama quote from a specific character.
+      operationId: quote_by_v1
+      parameters:
+        - name: by
+          in: path
+          description: The case-insensitive name of a Futurama character.
+          required: true
+          schema:
+            type: string
+            example: "bender"
+      responses:
+        200:
+          $ref: "#/components/responses/Quote"
+        404:
+          description: The server could not find any quotes, which probably means we didn't configure it properly or you have asked for a quote from someone we don't have in our database.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              example:
+                code: 404
+                error: Not Found
+                description: The resource you were looking for could not be found, please check your request and try again.
+        500:
+          $ref: "#/components/responses/InternalServerError"
+
+components:
+  responses:
+    Quote:
+      description: The server was able to find a quote for you.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/QuoteV1"
+        text/plain:
+          schema:
+            type: string
+          example: Bite my shiny metal ass. – Bender
+        text/html:
+          schema:
+            type: string
+          example: |
+            <html>
+              <head>
+                  <style>
+                      body {
+                          font-family: Sans-serif;
+                      }
+
+                      figure {
+                          margin: 20px;
+                      }
+
+                      blockquote {
+                          margin-left: 1em;
+                      }
+
+                      figcaption {
+                          margin-left: 2em;
+                          font-size: 0.8em;
+                          font-weight: bold;
+                      }
+
+                      figcaption::before {
+                          display: inline;
+                          content: "–";
+                          padding-right: 0.5em;
+                      }
+                  </style>
+              </head>
+              <body>
+                  <figure>
+                      <blockquote>Bite my shiny metal ass.</blockquote>
+                      <figcaption>Bender</figcaption>
+                  </figure>
+              </body>
+            </html>
+
+    InternalServerError:
+      description: The server failed to process your request successfully.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            code: 500
+            error: Internal Server Error
+            description: The server encountered an error while processing your request, please try again later.
+
+  schemas:
+    HealthV1:
+      required:
+        - ok
+      type: object
+      properties:
+        ok:
+          type: boolean
+          description: Whether the service is healthy or not.
+          readOnly: true
+          example: true
+
+    QuoteV1:
+      required:
+        - quote
+        - who
+      type: object
+      properties:
+        quote:
+          type: string
+          description: The quote which was said by the character.
+          example: Bite my shiny metal ass.
+        who:
+          type: string
+          description: The name of the character who passed the quote.
+          example: Bender
+
+    Error:
+      type: object
+      description: An error describing a problem that the server has encountered or identified.
+      required:
+        - code
+        - error
+        - message
+      properties:
+        code:
+          type: number
+          format: integer
+          minimum: 100
+          maximum: 599
+          description: The HTTP status code corresponding to this error.
+        error:
+          type: string
+          description: The human readable description of the HTTP status code.
+        description:
+          type: string
+          description: A human readable description of the exact error that occurred.

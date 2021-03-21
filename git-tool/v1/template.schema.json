@@ -33,6 +33,7 @@
                 ],
                 "oneOf": [
                     {
+                        "required": ["app"],
                         "properties": {
                             "app": {
                                 "$ref": "https://schemas.sierrasoftworks.com/git-tool/v1/config.schema.json#/definitions/Application"
@@ -40,6 +41,7 @@
                         }
                     },
                     {
+                        "required": ["service"],
                         "properties": {
                             "service": {
                                 "$ref": "https://schemas.sierrasoftworks.com/git-tool/v1/config.schema.json#/definitions/Service"
@@ -47,6 +49,7 @@
                         }
                     }
                 ],
+                "additionalProperties": false,
                 "properties": {
                     "platform": {
                         "type": "string",

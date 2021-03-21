@@ -76,7 +76,7 @@
                     "type": "string",
                     "description": "The pseudo-glob pattern which will be used to determine which level of the directory tree holds repositories (*/* for org/repo style platforms).",
                     "default": "*/*",
-                    "pattern": "^\\*(\\.\\*)+$"
+                    "pattern": "^\\*(/\\*)+$"
                 }
             }
         }

@@ -1,0 +1,27 @@
+{
+    "$schema": "./config.schema.json",
+    "directory": "/home/bpannell/dev",
+    "scratchpads": "/home/bpannell/scratch",
+    "apps": [
+        {
+            "name": "shell",
+            "command": "pwsh"
+        }
+    ],
+    "services": [
+        {
+            "domain": "github.com",
+            "website": "https://github.com/{{ .Repo.FullName }}",
+            "gitUrl": "git@github.com:{{ .Repo.FullName }}.git",
+            "httpUrl": "https://github.com/{{ .Repo.FullName }}.git",
+            "pattern": "*/*"
+        }
+    ],
+    "aliases": {
+        "gt": "github.com/SierraSoftworks/git-tool"
+    },
+    "features": {
+        "http_transport": true,
+        "telemetry": false
+    }
+}

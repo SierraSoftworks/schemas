@@ -1,0 +1,32 @@
+{
+  "$schema": "./template.schema.json",
+  "name": "Demo",
+  "description": "This is an example of how to create a config template",
+  "version": "1.0.0",
+  "configs": [
+    {
+      "platform": "any",
+      "service": {
+        "domain": "github.com",
+        "website": "https://{{ .Service.Domain }}/{{ .Repo.FullName }}",
+        "httpUrl": "https://{{ .Service.Domain }}/{{ .Repo.FullName }}.git",
+        "gitUrl": "git@{{ .Service.Domain }}:{{ .Repo.FullName }}.git",
+        "pattern": "*/*"
+      }
+    },
+    {
+      "platform": "windows",
+      "app": {
+        "name": "shell",
+        "command": "powershell.exe"
+      }
+    },
+    {
+      "platform": "linux",
+      "app": {
+        "name": "shell",
+        "command": "pwsh"
+      }
+    }
+  ]
+}

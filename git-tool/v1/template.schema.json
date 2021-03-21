@@ -35,17 +35,13 @@
                     {
                         "required": ["app"],
                         "properties": {
-                            "app": {
-                                "$ref": "https://schemas.sierrasoftworks.com/git-tool/v1/config.schema.json#/definitions/Application"
-                            }
+                            "service": false
                         }
                     },
                     {
                         "required": ["service"],
                         "properties": {
-                            "service": {
-                                "$ref": "https://schemas.sierrasoftworks.com/git-tool/v1/config.schema.json#/definitions/Service"
-                            }
+                            "app": false
                         }
                     }
                 ],
@@ -61,6 +57,12 @@
                             "linux",
                             "darwin"
                         ]
+                    },
+                    "app": {
+                        "$ref": "https://schemas.sierrasoftworks.com/git-tool/v1/config.schema.json#/definitions/Application"
+                    },
+                    "service": {
+                        "$ref": "https://schemas.sierrasoftworks.com/git-tool/v1/config.schema.json#/definitions/Service"
                     }
                 }
             }

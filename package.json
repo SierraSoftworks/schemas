@@ -1,7 +1,7 @@
 {
-  "name": "git-tool-docs",
+  "name": "schemas",
   "version": "1.0.0",
-  "description": "The documentation website for Git-Tool, generated with VuePress",
+  "description": "The schema website for Sierra Softworks",
   "main": "index.js",
   "scripts": {
     "build": "vuepress build . --dest dist",
@@ -9,10 +9,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SierraSoftworks/git-tool-docs.git"
+    "url": "git+https://github.com/SierraSoftworks/schemas.git"
   },
   "keywords": [
-    "git-tool",
     "documentation",
     "vuepress",
     "website",
@@ -21,9 +20,9 @@
   "author": "Benjamin Pannell <benjamin@pannell.dev>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/SierraSoftworks/git-tool-docs/issues"
+    "url": "https://github.com/SierraSoftworks/schemas/issues"
   },
-  "homepage": "https://github.com/SierraSoftworks/git-tool-docs#readme",
+  "homepage": "https://github.com/SierraSoftworks/schemas#readme",
   "devDependencies": {
     "@vuepress/bundler-vite": "^2.0.0-beta.4",
     "@vuepress/plugin-google-analytics": "^2.0.0-beta.4",

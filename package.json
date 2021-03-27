@@ -4,8 +4,8 @@
   "description": "The schema website for Sierra Softworks",
   "main": "index.js",
   "scripts": {
-    "build": "vuepress build",
-    "dev": "vuepress dev"
+    "build": "vuepress build docs",
+    "dev": "vuepress dev docs"
   },
   "repository": {
     "type": "git",
@@ -25,7 +25,6 @@
   "homepage": "https://github.com/SierraSoftworks/schemas#readme",
   "devDependencies": {
     "@vuepress/plugin-google-analytics": "2.0.0-beta.6",
-    "copy-dir": "^1.3.0",
     "vuepress-vite": "2.0.0-beta.6"
   }
 }

@@ -1,6 +1,6 @@
 version: 2
 updates:
-  - directory: /
+  - directory: /docs
     package-ecosystem: npm
     schedule:
       interval: daily

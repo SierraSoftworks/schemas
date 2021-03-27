@@ -14,6 +14,8 @@ export default defineUserConfig<DefaultThemeOptions>({
   title: 'Sierra Softworks Schemas',
   description: 'Schema files used by Sierra Softworks tools, and their documentation.',
 
+  bundler: '@vuepress/bundler-vite',
+
   head: [
     ['meta', { name: "description", content: "Schema files used by Sierra Softworks tools, and their documentation." }],
     ['link', { rel: 'icon', href: '/favicon.ico' }],

@@ -53,11 +53,23 @@ export default defineUserConfig<DefaultThemeOptions>({
           isGroup: true,
           text: "Schemas",
           children: [
-            '/schemas.md',
-            '/bender/README.md',
+            '/schemas.md'
+          ]
+        },
+        {
+          isGroup: true,
+          text: "Config",
+          children: [
             '/git-tool/README.md',
-            '/rex/README.md',
             '/wkd/README.md'
+          ]
+        },
+        {
+          isGroup: true,
+          text: "APIs",
+          children: [
+            '/bender/README.md',
+            '/rex/README.md'
           ]
         }
       ]

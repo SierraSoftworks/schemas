@@ -1,3 +1,5 @@
+import {dirname, join} from "path"
+import * as copydir from "copy-dir"
 import { defineUserConfig, PageHeader, DefaultThemeOptions } from 'vuepress-vite'
 
 function htmlDecode(input: string): string {
@@ -28,6 +30,16 @@ export default defineUserConfig<DefaultThemeOptions>({
     return {
       headers: fixedHeaders,
     }
+  },
+
+  onPrepared(app) {
+    const srcDir = join(dirname(dirname(__dirname /* .vuepress */) /* docs */) /* $repo */, "src")
+    const publicDir = join(__dirname, "public")
+    copydir.sync(srcDir, publicDir, {
+      filter(stat, filePath, fileName) {
+        return !fileName.startsWith("test.")
+      }
+    })
   },
 
   themeConfig: {

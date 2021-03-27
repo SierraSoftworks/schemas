@@ -4,7 +4,7 @@
   "description": "The schema website for Sierra Softworks",
   "main": "index.js",
   "scripts": {
-    "build": "vuepress build docs",
+    "build": "vuepress build --clean-cache --clean-temp docs",
     "dev": "vuepress dev docs"
   },
   "repository": {

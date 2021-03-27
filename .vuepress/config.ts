@@ -1,5 +1,4 @@
-import { App, defineUserConfig, PageHeader } from 'vuepress'
-import { DefaultThemeOptions } from '@vuepress/theme-default'
+import { defineUserConfig, PageHeader, DefaultThemeOptions } from 'vuepress-vite'
 
 function htmlDecode(input: string): string {
   return input.replace("&#39;", "'").replace("&amp;", "&").replace("&quot;", '"')
@@ -19,8 +18,6 @@ export default defineUserConfig<DefaultThemeOptions>({
     ['meta', { name: "description", content: "Schema files used by Sierra Softworks tools, and their documentation." }],
     ['link', { rel: 'icon', href: '/favicon.ico' }],
   ],
-
-  bundler: "@vuepress/bundler-vite",
 
   extendsPageData(page, app) {
     const fixedHeaders = page.headers || []

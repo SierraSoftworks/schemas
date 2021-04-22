@@ -16,6 +16,7 @@ https://schemas.sierrasoftworks.com/git-tool/v1/config.schema.json
 
 #### Example
 ```yaml
+# yaml-language-server: $schema=https://schemas.sierrasoftworks.com/git-tool/v1/config.schema.json
 $schema: https://schemas.sierrasoftworks.com/git-tool/v1/config.schema.json
 directory: /home/bpannell/dev
 services:
@@ -50,6 +51,7 @@ https://schemas.sierrasoftworks.com/git-tool/v1/template.schema.json
 
 #### Example
 ```yaml
+# yaml-language-server: $schema=https://schemas.sierrasoftworks.com/git-tool/v1/template.schema.json
 $schema: https://schemas.sierrasoftworks.com/git-tool/v1/template.schema.json
 name: Demo
 description: This is an example of how to create a config template

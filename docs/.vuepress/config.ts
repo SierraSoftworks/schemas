@@ -73,7 +73,7 @@ export default defineUserConfig<DefaultThemeOptions>({
           text: "Config",
           children: [
             '/git-tool/README.md',
-            '/wkd/README.md'
+            '/wkd/README.md',
           ]
         },
         {
@@ -81,7 +81,8 @@ export default defineUserConfig<DefaultThemeOptions>({
           text: "APIs",
           children: [
             '/bender/README.md',
-            '/rex/README.md'
+            '/rex/README.md',
+            '/roadmap/README.md',
           ]
         }
       ]

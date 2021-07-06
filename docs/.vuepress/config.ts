@@ -1,6 +1,6 @@
 import {dirname, join} from "path"
-import * as copydir from "copy-dir"
 import { defineUserConfig, PageHeader, DefaultThemeOptions } from 'vuepress-vite'
+import {path, fs} from '@vuepress/utils'
 
 function htmlDecode(input: string): string {
   return input.replace("&#39;", "'").replace("&amp;", "&").replace("&quot;", '"')
@@ -32,13 +32,12 @@ export default defineUserConfig<DefaultThemeOptions>({
     }
   },
 
-  onPrepared(app) {
+  async onPrepared(app) {
     const srcDir = join(dirname(dirname(__dirname /* .vuepress */) /* docs */) /* $repo */, "src")
-    const publicDir = join(__dirname, "public")
-    copydir.sync(srcDir, publicDir, {
-      filter(stat, filePath, fileName) {
-        return !fileName.startsWith("test.")
-      }
+    await fs.copy(srcDir, app.dir.public(), {
+      recursive: true,
+      overwrite: true,
+      filter: f => !path.basename(f).startsWith("test.")
     })
   },
 
@@ -90,6 +89,12 @@ export default defineUserConfig<DefaultThemeOptions>({
   },
 
   plugins: [
-    ["@vuepress/plugin-google-analytics", { id: "G-WJQ1PVYVH0" }]
+    ["@vuepress/plugin-google-analytics", { id: "G-WJQ1PVYVH0" }],
+    [
+      '@vuepress/plugin-register-components',
+      {
+        componentsDir: path.resolve(__dirname, './components'),
+      },
+    ]
   ]
 })

@@ -23,13 +23,11 @@ export default defineUserConfig<DefaultThemeOptions>({
     ['link', { rel: 'icon', href: 'https://cdn.sierrasoftworks.com/logos/icon_small.ico' }],
   ],
 
-  extendsPageData(page, app) {
+  extendsPage(page, app) {
     const fixedHeaders = page.headers || []
     fixedHeaders.forEach(header => fixPageHeader(header))
 
-    return {
-      headers: fixedHeaders,
-    }
+    page.headers = fixedHeaders
   },
 
   async onPrepared(app) {
@@ -61,14 +59,12 @@ export default defineUserConfig<DefaultThemeOptions>({
     sidebar: {
       '/': [
         {
-          isGroup: true,
           text: "Schemas",
           children: [
             '/schemas.md'
           ]
         },
         {
-          isGroup: true,
           text: "Config",
           children: [
             '/git-tool/README.md',
@@ -76,7 +72,6 @@ export default defineUserConfig<DefaultThemeOptions>({
           ]
         },
         {
-          isGroup: true,
           text: "APIs",
           children: [
             '/bender/README.md',

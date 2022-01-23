@@ -1,0 +1,162 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "description": "The Git-Tool configuration file allows you to control how Git-Tool behaves on your computer. For more information, look at the documentation: https://git-tool.sierrasoftworks.com/config/",
+    "type": "object",
+    "required": [
+        "directory",
+        "services",
+        "apps"
+    ],
+    "definitions": {
+        "Application": {
+            "type": "object",
+            "description": "The application which should be added to your config.",
+            "required": [
+                "name",
+                "command"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "The name which will be used to launch this application."
+                },
+                "command": {
+                    "type": "string",
+                    "description": "The binary which will be executed when launching this application."
+                },
+                "args": {
+                    "type": "array",
+                    "description": "The list of command line arguments which will be provided to the program.",
+                    "items": {
+                        "type": "string",
+                        "description": "A command line argument which will be provided to the program."
+                    }
+                },
+                "environment": {
+                    "type": "array",
+                    "description": "The list of environment variables which will be provided to the program.",
+                    "items": {
+                        "type": "string",
+                        "description": "An environment variable which will be provided to the program.",
+                        "default": "VARIABLE=value",
+                        "pattern": "^[\\w\\d_]+=.*$"
+                    }
+                }
+            }
+        },
+        "Service": {
+            "type": "object",
+            "description": "The service which should be added to your config.",
+            "required": [
+                "name",
+                "website",
+                "gitUrl",
+                "pattern"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "The name which uniquely identifies this service. This will act as the top-level directory for storing repositories.",
+                    "format": "hostname"
+                },
+                "website": {
+                    "type": "string",
+                    "description": "The template which will be used to generate the website URL for a given repository hosted on this service."
+                },
+                "gitUrl": {
+                    "type": "string",
+                    "description": "The template which will be used to generate the Git+SSH remote URL for a given repository hosted on this service."
+                },
+                "pattern": {
+                    "type": "string",
+                    "description": "The pseudo-glob pattern which will be used to determine which level of the directory tree holds repositories (*/* for org/repo style platforms).",
+                    "default": "*/*",
+                    "pattern": "^\\*(/\\*)+$"
+                },
+                "api": {
+                    "type": "object",
+                    "description": "The API format which should be used to communicate with this service.",
+                    "required": [
+                        "kind",
+                        "url"
+                    ],
+                    "properties": {
+                        "kind": {
+                            "type": "string",
+                            "description": "The format of the API which should be used to communicate with this service.",
+                            "enum": [
+                                "GitHub/v3"
+                            ]
+                        },
+                        "url": {
+                            "type": "string",
+                            "description": "The URL which should be used to communicate with this service's API."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "properties": {
+        "directory": {
+            "type": "string",
+            "description": "The directory within which Git-Tool will store your repositories."
+        },
+        "scratchpads": {
+            "type": "string",
+            "description": "The directory within which Git-Tool will store your scratchpads. By default this will be a 'scratch' folder inside your normal repo directory."
+        },
+        "apps": {
+            "type": "array",
+            "description": "The list of applications which are configured for use on your system.",
+            "items": {
+                "$ref": "#/definitions/Application"
+            }
+        },
+        "services": {
+            "type": "array",
+            "description": "The list of services which are configured for use on your system.",
+            "items": {
+                "$ref": "#/definitions/Service"
+            }
+        },
+        "aliases": {
+            "type": "object",
+            "description": "The short aliases used to refer to specific repositories.",
+            "additionalProperties": {
+                "type": "string",
+                "description": "The fully qualified name of a repository which should be opened when this alias is used."
+            }
+        },
+        "features": {
+            "type": "object",
+            "description": "The feature flags which are used to control how Git-Tool behaves on your system.",
+            "properties": {
+                "create_remote": {
+                    "type": "boolean",
+                    "description": "Whether Git-Tool will automatically create a repository on your remote hosting provider.",
+                    "default": true
+                },
+                "create_remote_private": {
+                    "type": "boolean",
+                    "description": "Whether Git-Tool will create Private remote repositories, or Public ones.",
+                    "default": true
+                },
+                "open_new_repo_in_default_app": {
+                    "type": "boolean",
+                    "description": "Whether Git-Tool will automatically open newly created repositories in your default app.",
+                    "default": false
+                },
+                "telemetry": {
+                    "type": "boolean",
+                    "description": "Control whether Git-Tool sends crash reports to us or not.",
+                    "default": true
+                }
+            },
+            "additionalProperties": {
+                "type": "boolean",
+                "description": "Whether the feature flag is enabled or not."
+            }
+        }
+    }
+}

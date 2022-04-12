@@ -24,7 +24,9 @@ services:
     website: "https://github.com/{{ .Repo.FullName }}"
     gitUrl: "git@github.com:{{ .Repo.FullName }}.git"
     pattern: "*/*"
-    api: github.com
+    api:
+      kind: GitHub/v3
+      endpoint: https://api.github.com
 apps:
   - name: shell
     command: pwsh
@@ -33,7 +35,7 @@ apps:
     args:
       - .
 aliases:
-  gt: github.com/SierraSoftworks/git-tool
+  gt: gh:SierraSoftworks/git-tool
 
 features:
   open_new_repo_in_default_app: true

@@ -1,6 +1,9 @@
 import {dirname, join} from "path"
-import { defineUserConfig, PageHeader, DefaultThemeOptions } from 'vuepress-vite'
+import { defineUserConfig, PageHeader, defaultTheme } from 'vuepress-vite'
 import {path, fs} from '@vuepress/utils'
+
+import {googleAnalyticsPlugin} from '@vuepress/plugin-google-analytics'
+import {registerComponentsPlugin} from '@vuepress/plugin-register-components'
 
 function htmlDecode(input: string): string {
   return input.replace("&#39;", "'").replace("&amp;", "&").replace("&quot;", '"')
@@ -11,12 +14,10 @@ function fixPageHeader(header: PageHeader) {
   header.children.forEach(child => fixPageHeader(child))
 }
 
-export default defineUserConfig<DefaultThemeOptions>({
+export default defineUserConfig({
   lang: 'en-GB',
   title: 'Sierra Softworks Schemas',
   description: 'Schema files used by Sierra Softworks tools, and their documentation.',
-
-  bundler: '@vuepress/bundler-vite',
 
   head: [
     ['meta', { name: "description", content: "Schema files used by Sierra Softworks tools, and their documentation." }],
@@ -39,7 +40,7 @@ export default defineUserConfig<DefaultThemeOptions>({
     })
   },
 
-  themeConfig: {
+  theme: defaultTheme({
     logo: 'https://cdn.sierrasoftworks.com/logos/icon.png',
 
     docsRepo: "SierraSoftworks/schemas",
@@ -81,15 +82,12 @@ export default defineUserConfig<DefaultThemeOptions>({
         }
       ]
     }
-  },
+  }),
 
   plugins: [
-    ["@vuepress/plugin-google-analytics", { id: "G-WJQ1PVYVH0" }],
-    [
-      '@vuepress/plugin-register-components',
-      {
-        componentsDir: path.resolve(__dirname, './components'),
-      },
-    ]
+    googleAnalyticsPlugin({ id: "G-WJQ1PVYVH0" }),
+    registerComponentsPlugin({
+      componentsDir: path.resolve(__dirname, './components'),
+    })
   ]
 })

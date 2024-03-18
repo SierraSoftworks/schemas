@@ -1,5 +1,7 @@
 import {dirname, join} from "path"
-import { defineUserConfig, PageHeader, defaultTheme } from 'vuepress-vite'
+import { defineUserConfig, PageHeader } from 'vuepress'
+import {viteBundler} from "@vuepress/bundler-vite"
+import {defaultTheme} from '@vuepress/theme-default'
 import {path, fs} from '@vuepress/utils'
 
 import {googleAnalyticsPlugin} from '@vuepress/plugin-google-analytics'
@@ -24,6 +26,8 @@ export default defineUserConfig({
     ['link', { rel: 'icon', href: 'https://cdn.sierrasoftworks.com/logos/icon_small.ico' }],
   ],
 
+  bundler: viteBundler(),
+
   extendsPage(page, app) {
     const fixedHeaders = page.headers || []
     fixedHeaders.forEach(header => fixPageHeader(header))
@@ -34,7 +38,6 @@ export default defineUserConfig({
   async onPrepared(app) {
     const srcDir = join(dirname(dirname(__dirname /* .vuepress */) /* docs */) /* $repo */, "src")
     await fs.copy(srcDir, app.dir.public(), {
-      recursive: true,
       overwrite: true,
       filter: f => !path.basename(f).startsWith("test.")
     })

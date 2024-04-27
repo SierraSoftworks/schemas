@@ -8,7 +8,7 @@ your favourite web comics for offline viewing. It allows you to create your own 
 files and includes a detailed schema to help you write them correctly.
 
 ```
-https://schemas.sierrasoftworks.com/wkd/WebComicDefinition.xml
+https://schemas.sierrasoftworks.com/wkd/WebComicDefinition.xsd
 ```
 
 #### Example

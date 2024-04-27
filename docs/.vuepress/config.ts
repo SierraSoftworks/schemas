@@ -1,11 +1,13 @@
-import {dirname, join} from "path"
+import { dirname, join } from "path"
 import { defineUserConfig, PageHeader } from 'vuepress'
-import {viteBundler} from "@vuepress/bundler-vite"
-import {defaultTheme} from '@vuepress/theme-default'
-import {path, fs} from '@vuepress/utils'
+import { viteBundler } from "@vuepress/bundler-vite"
+import { defaultTheme } from '@vuepress/theme-default'
+import { path, fs } from '@vuepress/utils'
 
-import {googleAnalyticsPlugin} from '@vuepress/plugin-google-analytics'
-import {registerComponentsPlugin} from '@vuepress/plugin-register-components'
+import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics'
+import { registerComponentsPlugin } from '@vuepress/plugin-register-components'
+import { seoPlugin } from "@vuepress/plugin-seo"
+import { sitemapPlugin } from "@vuepress/plugin-sitemap"
 
 function htmlDecode(input: string): string {
   return input.replace("&#39;", "'").replace("&amp;", "&").replace("&quot;", '"')
@@ -89,6 +91,17 @@ export default defineUserConfig({
 
   plugins: [
     googleAnalyticsPlugin({ id: "G-WJQ1PVYVH0" }),
+    seoPlugin({
+      hostname: "https://schemas.sierrasoftworks.com",
+      author: {
+        name: "Sierra Softworks",
+        url: "https://sierrasoftworks.com"
+      },
+    }),
+    sitemapPlugin({
+      hostname: "https://schemas.sierrasoftworks.com",
+      changefreq: "weekly",
+    }),
     registerComponentsPlugin({
       componentsDir: path.resolve(__dirname, './components'),
     })

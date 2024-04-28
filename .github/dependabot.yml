@@ -4,6 +4,11 @@ updates:
     package-ecosystem: npm
     schedule:
       interval: daily
+    groups:
+      vuepress:
+        patterns:
+          - "vuepress-vite"
+          - "@vuepress/*"
   - directory: /
     package-ecosystem: github-actions
     schedule:

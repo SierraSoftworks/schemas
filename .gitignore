@@ -137,3 +137,5 @@ temp/
 
 .temp
 .cache
+
+.direnv

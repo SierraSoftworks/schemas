@@ -26,6 +26,10 @@ export default defineUserConfig({
   head: [
     ['meta', { name: "description", content: "Schema files used by Sierra Softworks tools, and their documentation." }],
     ['link', { rel: 'icon', href: 'https://cdn.sierrasoftworks.com/logos/icon_small.ico' }],
+    ["script", {
+        defer: "",
+        src: "https://analytics.sierrasoftworks.com/script.js",
+    }],
   ],
 
   bundler: viteBundler(),

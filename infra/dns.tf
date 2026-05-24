@@ -13,3 +13,21 @@ resource "azurerm_dns_cname_record" "cname" {
     azurerm_static_web_app.website
   ]
 }
+
+data "cloudflare_zones" "root_domain" {
+  filter {
+    account_id = var.cloudflare_account_id
+    name       = var.root-domain
+    status     = "active"
+    match      = "all"
+  }
+}
+
+resource "cloudflare_record" "cname" {
+  zone_id = data.cloudflare_zones.root_domain.zones[0].id
+  name    = var.app-name
+  value   = azurerm_static_web_app.website.default_host_name
+  type    = "CNAME"
+  ttl     = 300
+  proxied = false
+}

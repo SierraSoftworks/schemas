@@ -18,7 +18,6 @@ data "cloudflare_zones" "root_domain" {
   filter {
     account_id = var.cloudflare_account_id
     name       = var.root-domain
-    status     = "active"
     match      = "all"
   }
 }

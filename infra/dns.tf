@@ -23,7 +23,7 @@ data "cloudflare_zones" "root_domain" {
 }
 
 resource "cloudflare_dns_record" "cname" {
-  zone_id = data.cloudflare_zones.root_domain.zones[0].id
+  zone_id = data.cloudflare_zones.root_domain.result[0].id
   name    = var.app-name
   content = azurerm_static_web_app.website.default_host_name
   type    = "CNAME"
@@ -32,7 +32,7 @@ resource "cloudflare_dns_record" "cname" {
 }
 
 resource "cloudflare_dns_record" "domain_validation" {
-  zone_id = data.cloudflare_zones.root_domain.zones[0].id
+  zone_id = data.cloudflare_zones.root_domain.result[0].id
   name    = "_dnsauth.${var.app-name}"
   content = azurerm_static_web_app_custom_domain.domain.validation_token
   type    = "TXT"

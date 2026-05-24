@@ -34,7 +34,7 @@ resource "cloudflare_dns_record" "cname" {
 resource "cloudflare_dns_record" "domain_validation" {
   zone_id = data.cloudflare_zones.root_domain.result[0].id
   name    = "_dnsauth.${var.app-name}"
-  content = azurerm_static_web_app_custom_domain.domain.validation_token
+  content = coalesce(azurerm_static_web_app_custom_domain.domain.validation_token, "validated")
   type    = "TXT"
   ttl     = 300
 }

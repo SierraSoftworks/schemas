@@ -15,17 +15,17 @@ resource "azurerm_dns_cname_record" "cname" {
 }
 
 data "cloudflare_zones" "root_domain" {
-  filter {
-    account_id = var.cloudflare_account_id
-    name       = var.root-domain
-    match      = "all"
+  account = {
+    id = var.cloudflare_account_id
   }
+
+  name = var.root-domain
 }
 
-resource "cloudflare_record" "cname" {
+resource "cloudflare_dns_record" "cname" {
   zone_id = data.cloudflare_zones.root_domain.zones[0].id
   name    = var.app-name
-  value   = azurerm_static_web_app.website.default_host_name
+  content = azurerm_static_web_app.website.default_host_name
   type    = "CNAME"
   ttl     = 300
   proxied = false

@@ -19,7 +19,7 @@ resource "azurerm_static_web_app" "website" {
 resource "azurerm_static_web_app_custom_domain" "domain" {
   static_web_app_id = azurerm_static_web_app.website.id
   domain_name       = trimsuffix(azurerm_dns_cname_record.cname.fqdn, ".")
-  validation_type   = "cname-delegation"
+  validation_type   = "dns-txt-token"
 
   lifecycle {
     prevent_destroy = true

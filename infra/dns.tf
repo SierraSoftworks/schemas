@@ -27,6 +27,14 @@ resource "cloudflare_dns_record" "cname" {
   name    = var.app-name
   content = azurerm_static_web_app.website.default_host_name
   type    = "CNAME"
+  ttl     = 1
+  proxied = true
+}
+
+resource "cloudflare_dns_record" "domain_validation" {
+  zone_id = data.cloudflare_zones.root_domain.zones[0].id
+  name    = "_dnsauth.${var.app-name}"
+  content = azurerm_static_web_app_custom_domain.domain.validation_token
+  type    = "TXT"
   ttl     = 300
-  proxied = false
 }

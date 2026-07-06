@@ -27,9 +27,10 @@ export default defineUserConfig({
     ['meta', { name: "description", content: "Schema files used by Sierra Softworks tools, and their documentation." }],
     ['link', { rel: 'icon', href: 'https://cdn.sierrasoftworks.com/logos/icon_small.ico' }],
     ["script", {
-        defer: "",
-        src: "https://analytics.sierrasoftworks.com/script.js",
-        "data-website-id": "ef955bb5-63df-4f1d-9609-877fe8c39a07",
+        async: "",
+        src: "https://analytics.sierrasoftworks.com/tracker.js",
+        "data-api": "https://analytics.sierrasoftworks.com",
+        "data-auto-capture-exceptions": "true",
     }],
   ],
 

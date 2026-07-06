@@ -28,7 +28,7 @@ export default defineUserConfig({
     ['link', { rel: 'icon', href: 'https://cdn.sierrasoftworks.com/logos/icon_small.ico' }],
     ["script", {
         async: "",
-        src: "https://analytics.sierrasoftworks.com/script.js",
+        src: "https://analytics.sierrasoftworks.com/tracker.js",
         "data-api": "https://analytics.sierrasoftworks.com",
         "data-auto-capture-exceptions": "true",
     }],

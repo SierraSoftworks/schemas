@@ -85,7 +85,10 @@
                             "type": "string",
                             "description": "The format of the API which should be used to communicate with this service.",
                             "enum": [
-                                "GitHub/v3"
+                                "GitHub/v3",
+                                "GitLab/v4",
+                                "Gitea/v1",
+                                "BitBucket/2.0"
                             ]
                         },
                         "url": {

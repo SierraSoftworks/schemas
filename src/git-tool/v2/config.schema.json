@@ -7,7 +7,7 @@
         "services",
         "apps"
     ],
-    "definitions": {
+    "$defs": {
         "Application": {
             "type": "object",
             "description": "The application which should be added to your config.",
@@ -113,14 +113,14 @@
             "type": "array",
             "description": "The list of applications which are configured for use on your system.",
             "items": {
-                "$ref": "#/definitions/Application"
+                "$ref": "#/$defs/Application"
             }
         },
         "services": {
             "type": "array",
             "description": "The list of services which are configured for use on your system.",
             "items": {
-                "$ref": "#/definitions/Service"
+                "$ref": "#/$defs/Service"
             }
         },
         "aliases": {

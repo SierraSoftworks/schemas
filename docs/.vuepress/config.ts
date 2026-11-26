@@ -1,7 +1,7 @@
 import { dirname, join } from "path"
 import { defineUserConfig, PageHeader } from 'vuepress'
 import { viteBundler } from "@vuepress/bundler-vite"
-import { defaultTheme } from '@vuepress/theme-default'
+import { themeClassic } from '@vuepress/theme-classic'
 import { path, fs } from '@vuepress/utils'
 
 import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics'
@@ -51,7 +51,7 @@ export default defineUserConfig({
     })
   },
 
-  theme: defaultTheme({
+  theme: themeClassic({
     logo: 'https://cdn.sierrasoftworks.com/logos/icon.png',
 
     docsRepo: "SierraSoftworks/schemas",
